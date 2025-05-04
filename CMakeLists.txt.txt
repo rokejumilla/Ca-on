@@ -1,0 +1,32 @@
+cmake_minimum_required(VERSION 3.10)
+project(LanzaRagdoll)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# Archivos fuente
+set(SOURCES
+    main.cpp
+    Game.cpp
+    Ragdoll.cpp
+    Box2DHelper.cpp
+)
+
+set(HEADERS
+    Game.h
+    Ragdoll.h
+    Box2DHelper.h
+)
+
+# Buscar SFML y Box2D
+find_package(SFML 2.5 COMPONENTS graphics window system REQUIRED)
+find_package(Box2D REQUIRED)
+
+# Crear el ejecutable
+add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
+
+# Incluir directorios
+target_include_directories(${PROJECT_NAME} PRIVATE ${SFML_INCLUDE_DIRS} ${BOX2D_INCLUDE_DIR})
+
+# Enlazar librerías
+target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-window sfml-system Box2D)
